@@ -9,8 +9,9 @@ ctk.set_default_color_theme("green")
 
 # RAKENDUSE AKEN
 app = ctk.CTk()
-app.title("MEIE PROGRAMM")
-app.geometry("400x200")
+app.title("MEIE PROGRAMMI NIMI")
+app.geometry("1366x768")
+app.resizable(False, False)
 
 # SCROLLABLE FRAME FOR THE WHOLE PROGRAM
 scroll = ctk.CTkScrollableFrame(app)
@@ -21,6 +22,7 @@ artisti_nimi_tekst = ctk.CTkLabel(scroll, text="ARTISTI NIMI:")
 artisti_nimi_tekst.grid(row=0, column=0, padx=10, pady=10)
 artisti_nime_sisend = ctk.CTkEntry(scroll)
 artisti_nime_sisend.grid(row=0, column=1, padx=10, pady=10)
+
 
 # SISEND + TEKST
 laulu_nimi_tekst = ctk.CTkLabel(scroll, text="LAULU NIMI:")
@@ -40,7 +42,7 @@ def laulu_sõnad():
 koht_laulu_sõnadeks = ctk.CTkLabel(scroll, text="")
 koht_laulu_sõnadeks.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
-nupp = ctk.CTkButton(scroll, text="OTSI", command=laulu_sõnad)
+
 nupp.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
 app.mainloop()
