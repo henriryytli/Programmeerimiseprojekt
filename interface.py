@@ -9,14 +9,16 @@ ctk.set_default_color_theme("green")
 
 # RAKENDUSE AKEN
 app = ctk.CTk()
-app.title("MEIE PROGRAMM")
-app.geometry("400x200")
+app.title("MEIE PROGRAMMI NIMI")
+app.geometry("1366x768")
+app.resizable(False, False)
 
 # SISEND + TEKST
 artisti_nimi_tekst = ctk.CTkLabel(app, text="ARTISTI NIMI:")
 artisti_nimi_tekst.grid(row=0, column=0, padx=10, pady=10)
 artisti_nime_sisend = ctk.CTkEntry(app)
 artisti_nime_sisend.grid(row=0, column=1, padx=10, pady=10)
+
 
 # SISEND + TEKST
 laulu_nimi_tekst = ctk.CTkLabel(app, text="LAULU NIMI:")
@@ -37,9 +39,7 @@ koht_laulu_sõnadeks = ctk.CTkLabel(app, text="")
 koht_laulu_sõnadeks.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
 scroll = ctk.CTkScrollableFrame(app)
-scroll.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
-# scroll.place(relx=0.5, rely=0.5, anchor="center")
-scroll.configure(width=app.winfo_width() * 0.8, height=100)
+scroll.pack(fill='both', expand=True)
 
 # TEEB SÕNADE AKNA SCROLLABLEIKS
 sõnad_tekst = ctk.CTkLabel(scroll, text="")
