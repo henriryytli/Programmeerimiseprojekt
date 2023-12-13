@@ -42,7 +42,7 @@ def laulu_sõnad():
 koht_laulu_sõnadeks = ctk.CTkLabel(scroll, text="")
 koht_laulu_sõnadeks.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
-
+nupp = ctk.CTkButton(scroll, text="OTSI", command=laulu_sõnad)
 nupp.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
 app.mainloop()
