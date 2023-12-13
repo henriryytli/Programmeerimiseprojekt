@@ -24,7 +24,7 @@ artisti_nime_sisend = ctk.CTkEntry(scroll)
 artisti_nime_sisend.pack(fill='x', padx=10, pady=10)
 
 def artisti_laulud():
-    genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSAXPzhyl5wqc6ktP")
+    genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSAXPzhyl5wqc6ktP", timeout=60)
     artist = artisti_nime_sisend.get()
     artistilauludobj = genius.search_artist(artist, max_songs=3)
     artistilaulud = [song.title for song in artistilauludobj.songs]
