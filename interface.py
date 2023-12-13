@@ -3,6 +3,7 @@ import webbrowser
 import yt_dlp
 import lyricsgenius
 import tkinter as tk
+import webbrowser
 
 ctk.set_appearance_mode('Dark')
 ctk.set_default_color_theme("green")
@@ -48,10 +49,32 @@ def laulu_sõnad():
     sõnad = laul.lyrics
     koht_laulu_sõnadeks.configure(text=sõnad)
 
+def video():
+    selected_song = laulu_nime_sisend.get()
+
+    # Search for the selected song on YouTube
+    ydl = yt_dlp.YoutubeDL({'format': 'bestaudio'})
+    search_query = f"ytsearch:{selected_song}"  # Remove 'artist' and 'title' from the search query
+    info = ydl.extract_info(search_query, download=False)
+
+    # Sort the search results by view count in descending order
+    sorted_results = sorted(info['entries'], key=lambda x: int(x['view_count']), reverse=True)
+
+    # Get the URL of the video with the most views
+    video_url = sorted_results[0]['webpage_url']
+
+    # Open the YouTube video in a web browser
+    webbrowser.open(video_url)
+
+
 koht_artistilauludeks = ctk.CTkLabel(scroll, text="Artisti laulud on: ")
 koht_artistilauludeks.pack(fill='both', padx=10, pady=10)
 
-nupp = ctk.CTkButton(scroll, text="OTSI", command=laulu_sõnad)
+def otsi():
+    laulu_sõnad()
+    video()
+
+nupp = ctk.CTkButton(scroll, text="OTSI", command=otsi)
 nupp.pack(fill='x', padx=10, pady=10)
 
 koht_laulu_sõnadeks = ctk.CTkLabel(scroll, text="")
