@@ -11,6 +11,7 @@ kollane = "#F9ED32"
 tumesinine = "#0B0F19"
 roosa = "#EF4D8D"
 veel_tumedam_tumesinine = "#0A0D13"
+
 genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSAXPzhyl5wqc6ktP", timeout=60)
 
 # FUNKTSIOONID:
@@ -112,7 +113,7 @@ scroll = ctk.CTkScrollableFrame(canvas, fg_color=tumesinine, width=500, height=4
 scroll.place(relx=0.5, rely=0.5, anchor=CENTER)
 
 # LAHTRID, MIS ALGUSEST PEALE NÄHTAVAD: ARTISTI NIMI, ARTISTI LAULUD
-artisti_nimi_tekst = ctk.CTkLabel(scroll, text="ARTISTI NIMI:", fg_color=tumesinine, text_color=kollane, font=("Bebas Neue", 30), corner_radius=10)
+artisti_nimi_tekst = ctk.CTkLabel(scroll, text="ARTISTI NIMI:", fg_color=tumesinine, text_color=kollane, font=('Bebas Neue', 30), corner_radius=10)
 artisti_nimi_tekst.pack(fill='x', padx=10, pady=10)
 artisti_nime_sisend = ctk.CTkEntry(scroll, font=("Bebas Neue", 30), border_color=kollane, border_width=1, justify="center", fg_color=tumesinine, text_color=roosa, corner_radius=10)
 artisti_nime_sisend.pack(fill='x', padx=10, pady=10)
