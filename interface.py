@@ -19,7 +19,7 @@ genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSA
 # FUNK. 1 : LEIAB ARTISTI LAULUD JA INSERTIB NAD ÕIGESSE KOHTA
 def artisti_laulud():
     artist = artisti_nime_sisend.get()
-    artistilauludobj = genius.search_artist(artist, max_songs=7) 
+    artistilauludobj = genius.search_artist(artist, max_songs=3) 
     artistilaulud = [song.title for song in artistilauludobj.songs]
     suggested_songs = random.sample(artistilaulud, 3)  # Select three random songs from the list
     
@@ -130,3 +130,9 @@ reset_nupp = ctk.CTkButton(scroll, text="Reset", font=("Bebas Neue", 30), text_c
 
 
 app.mainloop()
+
+
+# VAJALIKUD PARANDUSED: KIIREM LAULUDE LAADIMINE (VÕTAME AINULT 3?)
+# USER NÄEB KUI LAULJA NIME PARANDATAKSE MILLEKSKI MUUKS
+# KONTROLL, KAS USER SISESTAS ÜHE KOLMEST LAULU NIMEST
+# GIF ALLA NURKA?
