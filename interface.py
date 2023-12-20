@@ -24,7 +24,7 @@ def artisti_laulud():
     global artisti_laulud
     # RE TEEK MUUDAB KUSTUTAB ÄRA VEIDRAD "PEIDETUD" SÜMBOLID, MIS LAULU PEALKIRJA KLAPPIVUST KASUTAJA SISENDIGA VÕRDLEMIST TAKISTAVAD
     # [] SULGUDE SEES ON ERANDID, MIDA RE TEEK EI KUSTUTA, SEST NEED ESINEVAD PALJUDES LAULUPEALKIRJADES
-    artisti_laulud = [re.sub(r'[^\w\'‘’()!?+,.[]]+', ' ', song.title.lower()).strip() for song in artistilauludobj.songs]
+    artisti_laulud = [re.sub(r'[^\w\'‘’()!?+,.]+', ' ', song.title.lower()).strip() for song in artistilauludobj.songs]
     
     
     global koht_artistilauludeks
