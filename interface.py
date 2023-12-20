@@ -24,7 +24,7 @@ def artisti_laulud():
     
     global koht_artistilauludeks
     koht_artistilauludeks.configure(text="\n".join(suggested_songs))
-    koht_artistilauludeks.pack(fill='both', padx=10, pady=10)  # Pack the label when the button is clicked
+    koht_artistilauludeks.pack(fill='both', padx=10, pady=10)  # Tekitab koha kuhu lisada teksti nupu vajutusel
 
     global laulu_nimi_tekst
     laulu_nimi_tekst = ctk.CTkLabel(scroll, text="LAUL, MILLE SÕNU TAHAD:", fg_color=tumesinine, text_color=kollane, font=("Bebas Neue", 30), corner_radius=10)
@@ -56,18 +56,18 @@ def laulu_sõnad():
 def video():
     selected_song = laulu_nime_sisend.get() + " " + artisti_nime_sisend.get()
 
-    # Search for the selected song on YouTube
+    # Otsib laulu üles Youtube'ist
     ydl = yt_dlp.YoutubeDL({'format': 'bestaudio'})
-    search_query = f"ytsearch:{selected_song}"  # Remove 'artist' and 'title' from the search query
+    search_query = f"ytsearch:{selected_song}" 
     info = ydl.extract_info(search_query, download=False)
 
-    # Sort the search results by view count in descending order
+    # Sorteerib suuremast väiksemani
     sorted_results = sorted(info['entries'], key=lambda x: int(x['view_count']), reverse=True)
 
-    # Get the URL of the video with the most views
+    # Võtab kõige vaadatuma video URLi
     video_url = sorted_results[0]['webpage_url']
 
-    # Open the YouTube video in a web browser
+    # Avab Youtube'i lingi veebilehitsejas
     webbrowser.open(video_url)
 
 # FUNK. 4 : KUI KASUTAJA KLIKIB NUPPU OTSI SIIS KÄIVITAB FUNK. FUNKTSIOONID LAULU_SÕNAD JA VIDEO 
@@ -75,7 +75,7 @@ def otsi():
     laulu_sõnad()
     video()
 
-# FUNK. 5 : RESETIB KÕIK LAHTRID JA NUPUD
+# FUNK. 5 : Lähtestab kõik lahtrid ja nupud
 def reset():
     if laulu_nimi_tekst:
         laulu_nimi_tekst.pack_forget()
@@ -107,7 +107,7 @@ canvas = Canvas(app, width=900, height=700)
 canvas.pack()
 canvas.create_image(0, 0, anchor=NW, image=pilt)
 
-# SCROLLABLE FRAME
+# Et oleks võimalik kerida programmi
 scroll = ctk.CTkScrollableFrame(canvas, fg_color=tumesinine, width=500, height=400, scrollbar_button_color=veel_tumedam_tumesinine, scrollbar_button_hover_color=roosa, corner_radius=0)
 scroll.place(relx=0.5, rely=0.5, anchor=CENTER)
 
