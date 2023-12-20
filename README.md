@@ -12,3 +12,7 @@
 3. YouTube saab suurema sisendi (artisti nimi ja laulu nimi): käivitus on alati õige
 4. Meie programmil on nüüd disain
 5. Lugude otsimine ning nendest kolme valmine on natukene aeglane
+
+**-20.12.23-**
+1. Valmis sai!
+2. Uus feature: tuus error message, kui saamatu kasutaja vea teeb
