@@ -118,7 +118,7 @@ canvas.create_image(0, 0, anchor=NW, image=pilt)
 app.configure(cursor="crosshair")
 
 
-# Et oleks võimalik kerida programmi
+# KERITAV AKEN
 scroll = ctk.CTkScrollableFrame(canvas, fg_color=tumesinine, width=500, height=400, scrollbar_button_color=veel_tumedam_tumesinine, scrollbar_button_hover_color=roosa, corner_radius=0)
 scroll.place(relx=0.5, rely=0.5, anchor=CENTER)
 
