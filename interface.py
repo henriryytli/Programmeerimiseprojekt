@@ -4,7 +4,7 @@ import yt_dlp
 import lyricsgenius
 from tkinter import *
 import webbrowser
-import random
+import re
 from tkinter import messagebox
 
 # VÄRVID JA GENIUS LYRICS API
@@ -18,11 +18,13 @@ genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSA
 # FUNKTSIOONID:
 
 # FUNK. 1 : LEIAB ARTISTI LAULUD JA INSERTIB NAD ÕIGESSE KOHTA
-def artisti_laulud():
+def artisti_laulud(): 
     artist = artisti_nime_sisend.get()
     artistilauludobj = genius.search_artist(artist, max_songs=3)
     global artisti_laulud
-    artisti_laulud = [song.title.lower() for song in artistilauludobj.songs]
+    # RE TEEK MUUDAB KUSTUTAB ÄRA VEIDRAD "PEIDETUD" SÜMBOLID, MIS LAULU PEALKIRJA KLAPPIVUST KASUTAJA SISENDIGA VÕRDLEMIST TAKISTAVAD
+    # [] SULGUDE SEES ON ERANDID, MIDA RE TEEK EI KUSTUTA, SEST NEED ESINEVAD PALJUDES LAULUPEALKIRJADES
+    artisti_laulud = [re.sub(r'[^\w\'‘’()!?+,.[]]+', ' ', song.title.lower()).strip() for song in artistilauludobj.songs]
     
     
     global koht_artistilauludeks
@@ -76,8 +78,12 @@ def video():
 
 # FUNK. 4 : KUI KASUTAJA KLIKIB NUPPU OTSI SIIS KÄIVITAB FUNK. FUNKTSIOONID LAULU_SÕNAD JA VIDEO 
 def otsi():
-    if (laulu_nime_sisend.get()).lower() not in artisti_laulud:
-        messagebox.showerror("Viga", f"PAHA LUGU! '{laulu_nime_sisend.get()}' ei ole üks kolmest soovitatud laulust. VAATA ÜLE, MIS SA KIRJUTASID!")
+    user_input_lower = (laulu_nime_sisend.get()).lower()
+    print("User input (lowercase):", user_input_lower)
+    print("Suggested songs (lowercase):", [song.lower() for song in artisti_laulud])
+
+    if user_input_lower not in [song.lower() for song in artisti_laulud]:
+        messagebox.showerror("Viga", f"PAHA LUGU! '{user_input_lower}' ei ole üks kolmest soovitatud laulust. VAATA ÜLE, MIS SA KIRJUTASID!")
     else:
         laulu_sõnad()
         video()
@@ -121,6 +127,7 @@ app.configure(cursor="crosshair")
 # SCROLLABLE FRAME
 scroll = ctk.CTkScrollableFrame(canvas, fg_color=tumesinine, width=500, height=400, scrollbar_button_color=veel_tumedam_tumesinine, scrollbar_button_hover_color=roosa, corner_radius=0)
 scroll.place(relx=0.5, rely=0.5, anchor=CENTER)
+
 
 # LAHTRID, MIS ALGUSEST PEALE NÄHTAVAD: ARTISTI NIMI, ARTISTI LAULUD
 artisti_nimi_tekst = ctk.CTkLabel(scroll, text="ARTISTI NIMI:", fg_color=tumesinine, text_color=kollane, font=('Bebas Neue', 30), corner_radius=10)
