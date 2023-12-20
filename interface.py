@@ -5,6 +5,7 @@ import lyricsgenius
 from tkinter import *
 import webbrowser
 import random
+from tkinter import messagebox
 
 # VÄRVID JA GENIUS LYRICS API
 kollane = "#F9ED32"
@@ -20,7 +21,8 @@ genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSA
 def artisti_laulud():
     artist = artisti_nime_sisend.get()
     artistilauludobj = genius.search_artist(artist, max_songs=3) 
-    artistilaulud = [song.title for song in artistilauludobj.songs]
+    artistilaulud = [song.title.lower() for song in artistilauludobj.songs]
+    global suggested_songs
     suggested_songs = random.sample(artistilaulud, 3)  # Select three random songs from the list
     
     global koht_artistilauludeks
@@ -53,6 +55,7 @@ def laulu_sõnad():
     sõnad = laul.lyrics
     koht_laulu_sõnadeks.configure(text=sõnad)
 
+
 # FUNK. 3 : LEIAB LAULU VIDEO YOUTUBEST JA AVAB SELLE
 def video():
     selected_song = laulu_nime_sisend.get() + " " + artisti_nime_sisend.get()
@@ -73,8 +76,11 @@ def video():
 
 # FUNK. 4 : KUI KASUTAJA KLIKIB NUPPU OTSI SIIS KÄIVITAB FUNK. FUNKTSIOONID LAULU_SÕNAD JA VIDEO 
 def otsi():
-    laulu_sõnad()
-    video()
+    if (laulu_nime_sisend.get()).lower() not in suggested_songs:
+        messagebox.showerror("Viga", f"PAHA LUGU! '{laulu_nime_sisend.get()}' ei ole üks kolmest soovitatud laulust. VAATA ÜLE, MIS SA KIRJUTASID!")
+    else:
+        laulu_sõnad()
+        video()
 
 # FUNK. 5 : RESETIB KÕIK LAHTRID JA NUPUD
 def reset():
@@ -135,8 +141,3 @@ reset_nupp = ctk.CTkButton(scroll, text="Reset", font=("Bebas Neue", 30), text_c
 
 app.mainloop()
 
-
-# VAJALIKUD PARANDUSED: KIIREM LAULUDE LAADIMINE (VÕTAME AINULT 3?)
-# USER NÄEB KUI LAULJA NIME PARANDATAKSE MILLEKSKI MUUKS
-# KONTROLL, KAS USER SISESTAS ÜHE KOLMEST LAULU NIMEST
-# GIF ALLA NURKA?
