@@ -5,12 +5,14 @@ import lyricsgenius
 from tkinter import *
 import webbrowser
 import random
+from tkinter import messagebox
 
 # VÄRVID JA GENIUS LYRICS API
 kollane = "#F9ED32"
 tumesinine = "#0B0F19"
 roosa = "#EF4D8D"
 veel_tumedam_tumesinine = "#0A0D13"
+
 genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSAXPzhyl5wqc6ktP", timeout=60)
 
 # FUNKTSIOONID:
@@ -18,13 +20,14 @@ genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSA
 # FUNK. 1 : LEIAB ARTISTI LAULUD JA INSERTIB NAD ÕIGESSE KOHTA
 def artisti_laulud():
     artist = artisti_nime_sisend.get()
-    artistilauludobj = genius.search_artist(artist, max_songs=7) 
-    artistilaulud = [song.title for song in artistilauludobj.songs]
-    suggested_songs = random.sample(artistilaulud, 3)  # Select three random songs from the list
+    artistilauludobj = genius.search_artist(artist, max_songs=3)
+    global artisti_laulud
+    artisti_laulud = [song.title.lower() for song in artistilauludobj.songs]
+    
     
     global koht_artistilauludeks
-    koht_artistilauludeks.configure(text="\n".join(suggested_songs))
-    koht_artistilauludeks.pack(fill='both', padx=10, pady=10)  # Tekitab koha kuhu lisada teksti nupu vajutusel
+    koht_artistilauludeks.configure(text="\n".join(artisti_laulud))
+    koht_artistilauludeks.pack(fill='both', padx=10, pady=10) 
 
     global laulu_nimi_tekst
     laulu_nimi_tekst = ctk.CTkLabel(scroll, text="LAUL, MILLE SÕNU TAHAD:", fg_color=tumesinine, text_color=kollane, font=("Bebas Neue", 30), corner_radius=10)
@@ -52,6 +55,7 @@ def laulu_sõnad():
     sõnad = laul.lyrics
     koht_laulu_sõnadeks.configure(text=sõnad)
 
+
 # FUNK. 3 : LEIAB LAULU VIDEO YOUTUBEST JA AVAB SELLE
 def video():
     selected_song = laulu_nime_sisend.get() + " " + artisti_nime_sisend.get()
@@ -72,8 +76,11 @@ def video():
 
 # FUNK. 4 : KUI KASUTAJA KLIKIB NUPPU OTSI SIIS KÄIVITAB FUNK. FUNKTSIOONID LAULU_SÕNAD JA VIDEO 
 def otsi():
-    laulu_sõnad()
-    video()
+    if (laulu_nime_sisend.get()).lower() not in artisti_laulud:
+        messagebox.showerror("Viga", f"PAHA LUGU! '{laulu_nime_sisend.get()}' ei ole üks kolmest soovitatud laulust. VAATA ÜLE, MIS SA KIRJUTASID!")
+    else:
+        laulu_sõnad()
+        video()
 
 # FUNK. 5 : Lähtestab kõik lahtrid ja nupud
 def reset():
@@ -107,12 +114,16 @@ canvas = Canvas(app, width=900, height=700)
 canvas.pack()
 canvas.create_image(0, 0, anchor=NW, image=pilt)
 
+#CURSOR
+app.configure(cursor="crosshair")
+
+
 # Et oleks võimalik kerida programmi
 scroll = ctk.CTkScrollableFrame(canvas, fg_color=tumesinine, width=500, height=400, scrollbar_button_color=veel_tumedam_tumesinine, scrollbar_button_hover_color=roosa, corner_radius=0)
 scroll.place(relx=0.5, rely=0.5, anchor=CENTER)
 
 # LAHTRID, MIS ALGUSEST PEALE NÄHTAVAD: ARTISTI NIMI, ARTISTI LAULUD
-artisti_nimi_tekst = ctk.CTkLabel(scroll, text="ARTISTI NIMI:", fg_color=tumesinine, text_color=kollane, font=("Bebas Neue", 30), corner_radius=10)
+artisti_nimi_tekst = ctk.CTkLabel(scroll, text="ARTISTI NIMI:", fg_color=tumesinine, text_color=kollane, font=('Bebas Neue', 30), corner_radius=10)
 artisti_nimi_tekst.pack(fill='x', padx=10, pady=10)
 artisti_nime_sisend = ctk.CTkEntry(scroll, font=("Bebas Neue", 30), border_color=kollane, border_width=1, justify="center", fg_color=tumesinine, text_color=roosa, corner_radius=10)
 artisti_nime_sisend.pack(fill='x', padx=10, pady=10)
@@ -129,3 +140,4 @@ reset_nupp = ctk.CTkButton(scroll, text="Reset", font=("Bebas Neue", 30), text_c
 
 
 app.mainloop()
+
