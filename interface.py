@@ -20,13 +20,13 @@ genius = lyricsgenius.Genius("3-_YnHoVTUfnZK085ZibnT4i14Xr-nsMVNuXt_HS17Kbd0BcSA
 # FUNK. 1 : LEIAB ARTISTI LAULUD JA INSERTIB NAD ÕIGESSE KOHTA
 def artisti_laulud():
     artist = artisti_nime_sisend.get()
-    artistilauludobj = genius.search_artist(artist, max_songs=3) 
-    artistilaulud = [song.title.lower() for song in artistilauludobj.songs]
-    global suggested_songs
-    suggested_songs = random.sample(artistilaulud, 3)  # Select three random songs from the list
+    artistilauludobj = genius.search_artist(artist, max_songs=3)
+    global artisti_laulud
+    artisti_laulud = [song.title.lower() for song in artistilauludobj.songs]
+    
     
     global koht_artistilauludeks
-    koht_artistilauludeks.configure(text="\n".join(suggested_songs))
+    koht_artistilauludeks.configure(text="\n".join(artisti_laulud))
     koht_artistilauludeks.pack(fill='both', padx=10, pady=10)  # Pack the label when the button is clicked
 
     global laulu_nimi_tekst
@@ -76,7 +76,7 @@ def video():
 
 # FUNK. 4 : KUI KASUTAJA KLIKIB NUPPU OTSI SIIS KÄIVITAB FUNK. FUNKTSIOONID LAULU_SÕNAD JA VIDEO 
 def otsi():
-    if (laulu_nime_sisend.get()).lower() not in suggested_songs:
+    if (laulu_nime_sisend.get()).lower() not in artisti_laulud:
         messagebox.showerror("Viga", f"PAHA LUGU! '{laulu_nime_sisend.get()}' ei ole üks kolmest soovitatud laulust. VAATA ÜLE, MIS SA KIRJUTASID!")
     else:
         laulu_sõnad()
