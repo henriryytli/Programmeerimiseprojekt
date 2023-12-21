@@ -6,6 +6,7 @@ from tkinter import *
 import webbrowser
 import re
 from tkinter import messagebox
+import emoji
 
 # VÄRVID JA GENIUS LYRICS API
 kollane = "#F9ED32"
@@ -110,7 +111,7 @@ def reset():
 
 # RAKENDUSE AKEN
 app = ctk.CTk()
-app.title("HENRI & AX MUSIC MACHINA")
+app.title(f"HENRI & AX MUSIC MACHINA {emoji.emojize(':call_me_hand:')}{emoji.emojize(':smiling_face_with_sunglasses:')}{emoji.emojize(':call_me_hand:')} MAC")
 app.geometry("900x700")
 app.resizable(False, False)
 
