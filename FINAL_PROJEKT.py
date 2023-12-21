@@ -58,7 +58,6 @@ def laulu_sõnad():
     sõnad = laul.lyrics
     koht_laulu_sõnadeks.configure(text=sõnad)
 
-
 # FUNK. 3 : LEIAB LAULU VIDEO YOUTUBEST JA AVAB SELLE
 def video():
     selected_song = laulu_nime_sisend.get() + " " + artisti_nime_sisend.get()
